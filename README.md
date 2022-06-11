@@ -1,7 +1,8 @@
 # Web Vitals Collector
 
-A blazing fast web application to capture web vital signals from the javascript library [web-vitals](https://github.
-com/GoogleChrome/web-vitals) and store the in a [clickhouse database](https://clickhouse.com/)
+A blazing fast web application to capture web vital signals from the javascript library 
+[web-vitals](https://github.com/GoogleChrome/web-vitals) and store the in a 
+[clickhouse database](https://clickhouse.com/)
 
 ## Configuration
 
