@@ -45,11 +45,6 @@ func (s *Server) Handler(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("only POST is supported"))
 		return
 	}
-	if r.Header.Get("Content-Type") != "application/json" {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("wrong content type"))
-		return
-	}
 	decoder := json.NewDecoder(r.Body)
 	var data VitalDTO
 	err := decoder.Decode(&data)
