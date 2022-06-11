@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  web-vitals-collector:
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      - CLICKHOUSE_HOST=clickhouse
+  clickhouse:
+    image: yandex/clickhouse-server
+    ports:
+      - 9000:9000
+      - 8125:8123
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
