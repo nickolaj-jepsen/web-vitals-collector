@@ -78,8 +78,24 @@ window.addEventListener('pagehide', flushQueue);
 
 ## Benchmark
 
-Benchmarks are build with [k6](https://k6.io), use the following command to run it
+Benchmarks are build with [wrk](https://github.com/wg/wrk), use the following command to run it
 
 ```shell
-$ k6 run --vus 10 --duration 30s loadtest/load-test.js
+$ wrk -t16 -c400 -d30s -s loadtest/config.lua http://localhost:3000/
+```
+
+### Benchmark results
+
+On a 9th generation Intel Core i9, running both this app and the clickhouse database, the following results were 
+observed:
+
+```
+Running 30s test @ http://localhost:3000/
+  16 threads and 400 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    18.51ms   47.05ms 251.50ms   89.09%
+    Req/Sec    20.56k     7.85k   75.10k    75.27%
+  8946184 requests in 30.09s, 0.98GB read
+Requests/sec: 297330.52
+Transfer/sec:     33.46MB
 ```
