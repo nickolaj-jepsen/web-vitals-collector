@@ -5,13 +5,13 @@ com/GoogleChrome/web-vitals) and store the in a [clickhouse database](https://cl
 
 ## Configuration
 
-Configuration is handled by enviroment variables
+Configuration is handled by setting environment variables
 
-* `CLICKHOUSE_HOST`: Hostname of the clickhouse database (default: "localhost")
+* `CLICKHOUSE_HOST`: Hostname of the clickhouse server (default: "localhost")
 * `CLICKHOUSE_PORT`: Port of the clickhouse database (default: "9000")
-* `CLICKHOUSE_DATABASE`: Database name (default: "default")
-* `CLICKHOUSE_USERNAME`: Username used to connect to the clickhouse server (default: "default")
-* `CLICKHOUSE_PASSWORD`: Password used to connect to the clickhouse server (default: "")
+* `CLICKHOUSE_DATABASE`: Name of the clickhouse database (default: "default")
+* `CLICKHOUSE_USERNAME`: Username for the clickhouse database (default: "default")
+* `CLICKHOUSE_PASSWORD`: Password for the clickhouse database (default: "")
 * `PORT`: App port (default: 3000)
 
 
