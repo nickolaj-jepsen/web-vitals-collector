@@ -28,53 +28,49 @@ import { getCLS, getFID, getLCP, getFCP, getTTFB } from 'web-vitals';
 
 const COLLECTOR_ENDPOINT = 'http://localhost:3000/';
 
-const queue = new Set();
-function addToQueue(metric) {
-    queue.add(metric);
+let metrics = {url: window.location.href}
+
+function addMetric(metric) {
+    if (metrics !== undefined && metric.name !== undefined && metric.value !== undefined) {
+        metrics[metric.name] = metric.value;
+    }
 }
 
-function flushQueue() {
-    if (queue.size <= 0) {
+
+function emit() {
+    if (Object.keys(metrics).length <= 0) {
         return;
     }
 
-    const body = Object.fromEntries(
-        [...queue]
-            .filter((entry) => entry.name && entry.value)
-            .map((entry) => {
-                return [entry.name.toLowerCase(), entry.value];
-            })
-    );
-
-    body.url = window.location.href;
+    const body = JSON.stringify(metrics)
+    metrics = {};
 
     if (navigator.sendBeacon) {
-        navigator.sendBeacon(COLLECTOR_ENDPOINT, JSON.stringify(body));
+        navigator.sendBeacon(COLLECTOR_ENDPOINT, body);
     } else {
         fetch(COLLECTOR_ENDPOINT, {
-            body: JSON.stringify(body),
+            body: body,
             method: 'POST',
             keepalive: true,
         });
     }
 
-    queue.clear();
 }
 
-getCLS(addToQueue);
-getFID(addToQueue);
-getLCP(addToQueue);
-getFCP(addToQueue);
-getTTFB(addToQueue);
+getCLS(addMetric);
+getFID(addMetric);
+getLCP(addMetric);
+getFCP(addMetric);
+getTTFB(addMetric);
 
 window.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
-        flushQueue();
+        emit();
     }
 });
 
 // Safari workaround
-window.addEventListener('pagehide', flushQueue);
+window.addEventListener('pagehide', emit);
 ```
 
 ## Benchmark
