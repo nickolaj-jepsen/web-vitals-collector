@@ -15,7 +15,7 @@ func main() {
 	configuration := internal.GetConfiguration()
 	m, err := migrate.New(
 		"file://./migrations",
-		fmt.Sprintf("clickhouse://%s:%s@%s:%s/%s",
+		fmt.Sprintf("clickhouse://%s:%s@%s:%s/%s?x-multi-statement=true",
 			configuration.ClickHouseUsername,
 			configuration.ClickHousePassword,
 			configuration.ClickHouseHost,

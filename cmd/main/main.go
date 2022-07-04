@@ -17,12 +17,14 @@ type Server struct {
 }
 
 type VitalDTO struct {
-	Url  string   `json:"url"`
-	Cls  *float64 `json:"cls"`
-	Fcp  *float64 `json:"fcp"`
-	Fid  *float64 `json:"fid"`
-	Lcp  *float64 `json:"lcp"`
-	Ttfb *float64 `json:"ttfb"`
+	Url       string   `json:"url"`
+	Cls       *float64 `json:"cls"`
+	Fcp       *float64 `json:"fcp"`
+	Fid       *float64 `json:"fid"`
+	Lcp       *float64 `json:"lcp"`
+	Ttfb      *float64 `json:"ttfb"`
+	PageType  *string  `json:"page_type"`
+	FirstLoad *bool    `json:"first_load"`
 }
 
 func GenerateIdentifier(r *http.Request) string {
@@ -63,6 +65,8 @@ func (s *Server) Handler(w http.ResponseWriter, r *http.Request) {
 		Fid:        data.Fid,
 		Lcp:        data.Lcp,
 		Ttfb:       data.Ttfb,
+		PageType:   data.PageType,
+		FirstLoad:  data.FirstLoad,
 	}
 
 	w.Write([]byte("ok"))

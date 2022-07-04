@@ -15,6 +15,8 @@ type VitalRow struct {
 	Fid        *float64  `ch:"fid"`
 	Lcp        *float64  `ch:"lcp"`
 	Ttfb       *float64  `ch:"ttfb"`
+	PageType   *string   `ch:"page_type"`
+	FirstLoad  *bool     `ch:"first_load"`
 }
 
 func Insert(conn clickhouse.Conn, rows []*VitalRow) error {
